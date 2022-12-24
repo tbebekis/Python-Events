@@ -202,7 +202,7 @@ print(V) # prints 3
 ```
 The `Event` class uses this feature in order to add or remove event handlers, provided by Subscriders, to its internal `_Handlers` list.
 
-This is exactly what happens when the followin line of the `main.py` is called. The `StartedHandler()` method of the `Subscriber` object is added to the internal `Event`'s internal `_Handlers` list.
+This is exactly what happens when the followin line of the `main.py` is called. A reference to the `StartedHandler()` method of the `Subscriber` object is added to the internal `Event`'s internal `_Handlers` list.
 
 ```
 Pub.StartEvent += Sub.StartedHandler
@@ -249,9 +249,7 @@ Which in turn calls the `Publisher.OnStart()` method.
 
 The `Publisher.OnStart()` method prepares an object of the `EventArgs` class and then calls the `StartEvent`.
 
-The `StartEvent` is just a field. Its type is `Event`.  
-
-`Event` is a callable class. As a consequence the `__call__()` method of the `Event` class is called.
+The `StartEvent` is just a field. Its type is `Event`. And `Event` is a callable class. As a consequence the `__call__()` method of the `Event` class is called.
 
 ```
 	def __call__(self, Args: Args):	
@@ -261,7 +259,7 @@ The `StartEvent` is just a field. Its type is `Event`.
 
 ### Generics
 
-Python is an interpreter, a script. Not a strictly typed language. So event the following code is executed without errors, although it uses [Type Annotations](https://docs.python.org/3/library/typing.html).
+Python is an interpreter, a script. Not a strictly typed language. So even the following code is executed without errors, although it uses [Type Annotations](https://docs.python.org/3/library/typing.html).
 
 ```
 def Test(v: int) -> int:
