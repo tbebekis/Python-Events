@@ -67,7 +67,7 @@ The `Event` class stores event handler function references in its internal `_Han
 
 ## The source code
 
-Following are the source code files used in this exercise.<!-- more -->
+Following are the source code files used in this exercise.<!--more-->
 
 ### The `Event.py` file
 
