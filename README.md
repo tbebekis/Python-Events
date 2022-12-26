@@ -1,6 +1,6 @@
 # Python Events
 
-Source code can be fount at [Github](https://github.com/tbebekis/Python-Events).
+Source code can be found at [Github](https://github.com/tbebekis/Python-Events).
 
 ## Introduction
 
