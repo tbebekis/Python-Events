@@ -285,3 +285,75 @@ The `Event` class involves `Args` in its `def __call__(self, Args: Args)` method
 
 An application may subclass the `EventArgs` class and define its own event argument classes, proper for its own needs.
 
+## Events in Python the easy way
+
+If all of the above look too fancy or cryptic here is the easy way to have events in Python.
+
+Following is a new version of the `Event` and `EventArgs` classes along with a new version of the sample classes without the cryptic `__xxx()__` calls.
+
+### The `Event2.py` file
+
+```
+from typing import TypeVar
+
+class EventArgs2():
+	def __init__(self, Sender: object):
+		self.Sender = Sender
+		self.EventParams = dict()
+
+Args = TypeVar('Args', bound=EventArgs2)
+
+class Event2(object): 
+    def __init__(self):
+        self._Handers = [] 
+    def Add(self, Hander):
+        self._Handers.append(Hander)
+    def Remove(self, Handler):
+        self._Handers.remove(Handler)
+    def Invoke(self, Args: Args):
+        for Hander in self._Handers:
+            Hander(Args)
+
+class Publisher2():
+    def __init__(self):
+        self.StartEvent = Event2()
+        self.StopEvent = Event2()		 
+
+    def OnStart(self):
+        Args = EventArgs2(self)
+        self.StartEvent.Invoke(Args)
+
+    def OnStop(self):	
+        Args = EventArgs2(self)
+        self.StopEvent.Invoke(Args)	
+
+    def Start(self):
+        self.OnStart()
+
+    def Stop(self):
+        self.OnStop()
+
+class Subscriber2():
+    def StartedHandler(self, Args: EventArgs2):
+        print("Started")
+
+    def StoppedHandler(self, Args: EventArgs2):
+        print("Stopped")
+
+def TestEvent2():
+    Pub = Publisher2() 
+
+    Sub = Subscriber2()
+    Pub.StartEvent.Add(Sub.StartedHandler)
+    Pub.StopEvent.Add(Sub.StoppedHandler)
+
+    Pub.Start()
+```
+
+### The `main.py` file
+
+```
+import Event2
+
+Event2.TestEvent2()
+```
